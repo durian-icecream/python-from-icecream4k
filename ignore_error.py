@@ -12,7 +12,7 @@ class DaiNeiVideoSpider:
     def __init__(self):
         self.url='http://tts.tmooc.cn/studentCenter/toMyttsPage'
         self.headers = {
-            'Cookie': 'ssss763527=0; cloudAuthorityCookie=0; tedu.local.language=zh-CN; __root_domain_v=.tmooc.cn; _qddaz=QD.rwf95u.l864tk.ka0g2ska; versionListCookie=WEBTN201805; defaultVersionCookie=WEBTN201805; versionAndNamesListCookie=WEBTN201805N22NWeb%25E5%2589%258D%25E7%25AB%25AF%25E5%25BC%2580%25E5%258F%2591%25E5%25B7%25A5%25E7%25A8%258B%25E5%25B8%2588%25E5%2585%25A8%25E6%2597%25A5%25E5%2588%25B6%25E8%25AF%25BE%25E7%25A8%258BV05N22N763527; courseCookie=WEB; stuClaIdCookie=763527; isCenterCookie=yes; _qddab=3-wi4elm.kam6bsxw; TMOOC-SESSION=a6fccd7bd39948a58b11c0fd8d2f6235; Hm_lvt_51179c297feac072ee8d3f66a55aa1bd=1590110207,1590127365,1590370039,1590391993; Hm_lpvt_51179c297feac072ee8d3f66a55aa1bd=1590393196; sessionid=a6fccd7bd39948a58b11c0fd8d2f6235|E_bfur9u0; JSESSIONID=E5D0EA0BEB8CB92C3B3B8537FF343EAA; Hm_lvt_e997f0189b675e95bb22e0f8e2b5fa74=1590127413,1590370062,1590391990,1590397487; Hm_lpvt_e997f0189b675e95bb22e0f8e2b5fa74=1590397487',
+            'Cookie': "ssss747859=1; ssss749546=0; ssss763527=0; isCenterCookie=no; cloudAuthorityCookie=0; tedu.local.language=zh-CN; __root_domain_v=.tmooc.cn; _qddaz=QD.996x4e.kolqbk.k6xr76vs; _qdda=3-1.1us199; Hm_lvt_51179c297feac072ee8d3f66a55aa1bd=1584280122,1584798995,1584856545,1584860246; TMOOC-SESSION=e527d1039cb74f60bb54b9fcc8cec693; _qddab=3-pj1ohy.k82ovspt; Hm_lpvt_51179c297feac072ee8d3f66a55aa1bd=1584865080; sessionid=e527d1039cb74f60bb54b9fcc8cec693|E_bfuqhnh; versionListCookie=TSDTN201905; defaultVersionCookie=TSDTN201905; versionAndNamesListCookie=TSDTN201905N22N%25E8%25BD%25AF%25E4%25BB%25B6%25E6%25B5%258B%25E8%25AF%2595%25E5%2585%25A8%25E6%2597%25A5%25E5%2588%25B6%25E8%25AF%25BE%25E7%25A8%258BV05N22N749546; courseCookie=TESTING; stuClaIdCookie=749546; JSESSIONID=E3F91FE98C0DE9B7DC47A6648B480ACD; Hm_lvt_e997f0189b675e95bb22e0f8e2b5fa74=1584856579,1584860263,1584864826,1584865136; Hm_lpvt_e997f0189b675e95bb22e0f8e2b5fa74=1584865136",
             'Referer': 'http://uc.tmooc.cn/userCenter/toUserCoursePage',
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36'}
         # self.queue01=Queue()
@@ -30,7 +30,7 @@ class DaiNeiVideoSpider:
         link_list = parse_html.xpath('//li[@class="sp"]/a/@href')
         # print(link_list)
         # print(len(link_list))
-        for video in link_list[:]:
+        for video in link_list[0:50]:
             video_list.append(video)
             # print(video_list)
 
@@ -85,7 +85,7 @@ class DaiNeiVideoSpider:
         # print(html)
         if html.status_code==404:
             # print('url或视频出现错误,跳过')
-            with open('/Users/hanlong/Desktop/web视频/error.txt','a') as f:
+            with open(r'G:\Programs\Codes\try\PythonProgram\TTSspider_old\error.txt','a') as f:
                 f.write('{}文件写入错误，已跳过'.format(m3u8_url))
             pass
 
@@ -110,7 +110,7 @@ class DaiNeiVideoSpider:
         # 获得密匙
         keys = requests.get(url=key, headers=self.headers).content
         # 创建文件夹用来存放每半天的视频
-        dir = '/Users/hanlong/Desktop/web视频/{}'.format(dic_name)
+        dir = r'J:\视频\达内\TSD\{}'.format(dic_name)
         #如果文件夹不存在则创建文件夹并写入文件
         if not os.path.exists(dir):
             os.makedirs(dir)
